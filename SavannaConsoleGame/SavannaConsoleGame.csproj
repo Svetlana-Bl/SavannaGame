@@ -43,10 +43,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConsoleLogic\UserInterface.cs" />
-    <Compile Include="Enum\MenuChoice.cs" />
+    <Compile Include="ConsoleLogic\ConsoleOutput.cs" />
+    <Compile Include="ConsoleLogic\ConsoleInput.cs" />
+    <Compile Include="Interfaces\IAnimalBehavior.cs" />
+    <Compile Include="Models\GameField.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SavannaLogic\Animal.cs" />
+    <Compile Include="SavannaLogic\AnimalCreationOnTheField.cs" />
+    <Compile Include="SavannaLogic\Animals\Antelope.cs" />
+    <Compile Include="Game.cs" />
+    <Compile Include="SavannaLogic\Animals\Lion.cs" />
+    <Compile Include="SavannaLogic\SavannaEngine.cs" />
+    <Compile Include="SavannaLogic\FieldGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
