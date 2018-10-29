@@ -9,15 +9,11 @@ namespace SavannaConsoleGame.SavannaLogic
     {
         private static GameField _gameField = new GameField();
         
-        public static void Start()
+        public static void Run()
         {
+            ConsoleOutput.ShowIntroduction();
+            ConsoleOutput.GameRules();
             _gameField = SetGameField();
-            AnimalCreationOnTheField newAnimalManager = new AnimalCreationOnTheField(_gameField);
-
-            Thread GameThread = new Thread(new ThreadStart(newAnimalManager.WaitButtonPress));
-            GameThread.Name = String.Format("GameThread");
-            GameThread.Start();
-
             SavannaEngine savannaEngine = new SavannaEngine();
             savannaEngine.StartWildLife(_gameField);
         }

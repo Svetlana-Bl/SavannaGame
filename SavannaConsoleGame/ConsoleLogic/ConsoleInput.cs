@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 
 namespace SavannaConsoleGame.ConsoleLogic
 {
@@ -6,17 +7,15 @@ namespace SavannaConsoleGame.ConsoleLogic
     {
          public static void InputHeightAndWidthOfField(ref int fieldHeight, ref int fieldWidth)
          {
-            ConsoleOutput.ShowIntroduction();
-
-            ConsoleOutput.RequestFieldHeight();
-            fieldHeight = CheckInputHeightOrWidth();
+            ConsoleOutput.RequestFieldLength();
+            fieldHeight = CheckInputLengthOrWidth();
             ConsoleOutput.RequestFieldWidth();
-            fieldWidth = CheckInputHeightOrWidth();
+            fieldWidth = CheckInputLengthOrWidth();
 
             Console.Clear();   
          }
 
-        private static int CheckInputHeightOrWidth()
+        private static int CheckInputLengthOrWidth()
         {
             bool Valid = false;
             int parameterToInt = 0;
@@ -28,17 +27,20 @@ namespace SavannaConsoleGame.ConsoleLogic
                 if (int.TryParse(parameter, out parameterToInt))
                 {
                     Valid = true;
-                    if (parameterToInt < 10)
+                    if (Math.Abs(parameterToInt) < 10)
                     {
                         parameterToInt = 10;
-                    } else if (parameterToInt > 25)
+                        Console.WriteLine("Number {0} is too low. Default is 10", Math.Abs(Convert.ToInt32(parameter)));
+                    } else if (Math.Abs(parameterToInt) > 25)
                     {
                         parameterToInt = 25;
-                    }
+                        Console.WriteLine("Number {0} is too high. Default is 25", Math.Abs(Convert.ToInt32(parameter)));
+                    } else parameterToInt = Math.Abs(Convert.ToInt32(parameter));
+                    Thread.Sleep(1000);
                 }
                 else
                 {
-                    Console.WriteLine("Incorrect input! Please, enter !");
+                    Console.WriteLine("Incorrect input! Please, enter number (number from 10 to 25)!");
                 }
             }
             return parameterToInt;

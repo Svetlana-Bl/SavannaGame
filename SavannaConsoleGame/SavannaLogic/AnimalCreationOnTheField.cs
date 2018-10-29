@@ -1,26 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading;
 using SavannaConsoleGame.Models;
 
 namespace SavannaConsoleGame.SavannaLogic
 {
     public class AnimalCreationOnTheField
     {
-        List<Animal> currentAnimals = new List<Animal>();
-        public GameField _gameField = new GameField();
+        private static List<Animal> _currentAnimals = new List<Animal>();
+        public static GameField _gameField = new GameField();
 
-        public AnimalCreationOnTheField(GameField gameField)
+        public AnimalCreationOnTheField(GameField gameField, List<Animal> currentAnimals)
         {
             _gameField = gameField;
+            _currentAnimals = currentAnimals;
         }
 
-        public void WaitButtonPress()
-        {
-            new Thread(ButtonHandler).Start();
-        }
-
-        private void ButtonHandler()//redo this while-> make possibility to automaticaly understand what type of animal it is
+        public void WaitButtonPress()//redo this while-> make possibility to automaticaly understand what type of animal it is
         {
             while (true)
             {
@@ -41,7 +36,7 @@ namespace SavannaConsoleGame.SavannaLogic
             }
         }
 
-        private void CreateNewAnimal(GameField gameField, char animal)
+        private static void CreateNewAnimal(GameField gameField, char animal)
         {
             Random rand = new Random();
             int x, y;
@@ -56,11 +51,26 @@ namespace SavannaConsoleGame.SavannaLogic
                 {
                     gameField.Field[x, y] = animal;
                     approach = true;
+
+                    //TODO: create method to check what animal it is
+                    Animal newAnimal;
+                    if (animal == 'A')
+                        newAnimal = new Antelope();
+                    else newAnimal = new Lion();
+
+                    newAnimal.LocationX =x;
+                    newAnimal.LocationY = y;
+                    _currentAnimals.Add(newAnimal);
                 }
             }
             _gameField = gameField;
+            //TODO: add max count of animals on the field
         }
 
-        //TODO: add max count of animals on the field
+        public static List<Animal> GetAnimals()
+        {
+            return _currentAnimals;
+        }
+        
     }
 }

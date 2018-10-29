@@ -6,8 +6,9 @@ namespace SavannaConsoleGame.SavannaLogic
     {
         public Antelope() : base()
         {
-            this.Health = 10;
-            this.Color = "";
+            LiveState = true;
+            Health = 5;
+            Color = "";
         }
 
         public void Move()
@@ -22,12 +23,7 @@ namespace SavannaConsoleGame.SavannaLogic
 
         public void UpdateVisionRange()
         {
-            
-        }
-
-        public void DecreaseHealth()
-        {
-
+            //if see danger someone -> do special action
         }
     }
 }

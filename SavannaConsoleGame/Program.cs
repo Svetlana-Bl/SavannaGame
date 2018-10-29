@@ -1,5 +1,4 @@
-﻿using System;
-using SavannaConsoleGame.SavannaLogic;
+﻿using SavannaConsoleGame.SavannaLogic;
 
 namespace SavannaConsoleGame
 {
@@ -7,7 +6,7 @@ namespace SavannaConsoleGame
     {
         static void Main(string[] args)
         {
-            Game.Start();
+            Game.Run();
         }
     }
 }

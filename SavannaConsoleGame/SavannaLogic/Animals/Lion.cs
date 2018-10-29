@@ -7,8 +7,9 @@ namespace SavannaConsoleGame.SavannaLogic
         public const char animalButton = 'A';
         public Lion() : base()
         {
-            this.Health = 10;
-            this.Color = "";
+            LiveState = true;
+            Health = 5;
+            Color = "";
         }
 
         public void Move()
@@ -26,9 +27,5 @@ namespace SavannaConsoleGame.SavannaLogic
 
         }
 
-        public void DecreaseHealth()
-        {
-
-        }
     }
 }
