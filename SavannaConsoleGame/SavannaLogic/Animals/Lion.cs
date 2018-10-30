@@ -8,23 +8,13 @@ namespace SavannaConsoleGame.SavannaLogic
         public Lion() : base()
         {
             LiveState = true;
-            Health = 20;
-            Color = "";
+            Health = 10;
+            ButtonSymbol = 'L';
         }
 
-        public void Move()
-        {
-
-        }
-
-        public void Eat()
+        public override void SpecialAction()
         {
             //life level increase
-        }
-
-        public void UpdateVisionRange()
-        {
-
         }
 
     }

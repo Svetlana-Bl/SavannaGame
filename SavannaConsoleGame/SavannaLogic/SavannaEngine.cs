@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading;
 using SavannaConsoleGame.ConsoleLogic;
 using SavannaConsoleGame.Models;
@@ -29,9 +28,23 @@ namespace SavannaConsoleGame.SavannaLogic
                 {
                     UpdateCurrentAnimals();
                     ConsoleOutput.ShowGameField();
+                    if (CurrentAnimals.Animals.Count>=1)
+                    {
+                        GameField.NextStepField = FieldGenerator.GenerateSavannaField();
+                        int i = 0;
+                        while (i <CurrentAnimals.Animals.Count)
+                        {
+                            CurrentAnimals.Animals[i].Move();
+                            i++;
+                        }
+                        GameField.Field = GameField.NextStepField;
+                    }
+                        
+
+                   
                     Thread.Sleep(1000);
-                    Console.SetCursorPosition(0,0);
-                    //Console.Clear();
+                    //Console.SetCursorPosition(0,0);
+                    Console.Clear();
                 }
                 mutex.ReleaseMutex();
             }

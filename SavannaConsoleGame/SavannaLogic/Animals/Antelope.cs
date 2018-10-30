@@ -7,16 +7,11 @@ namespace SavannaConsoleGame.SavannaLogic
         public Antelope() : base()
         {
             LiveState = true;
-            Health = 20;
-            Color = "";
+            Health = 10;
+            ButtonSymbol = 'A';
         }
 
-        public void Move()
-        {
-
-        }
-
-        public void AvoidDanger()
+        public override void SpecialAction()
         {
 
         }

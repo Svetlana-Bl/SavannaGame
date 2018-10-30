@@ -16,7 +16,7 @@ namespace SavannaConsoleGame.SavannaLogic
         public static void SetGameField()
         {
             ConsoleInput.InputLengthAndWidthOfField();
-            FieldGenerator.GenerateSavannaField();
+            GameField.Field = FieldGenerator.GenerateSavannaField();
         }
     }
 }
