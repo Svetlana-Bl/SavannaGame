@@ -22,7 +22,7 @@ namespace SavannaConsoleGame.SavannaLogic
 
         public void UpdateVision(char animal, ref int x, ref int y)
         {
-            int startRowCoordinate = LocationX - 1, endRowCoordinate = LocationX + 1, startColumnCoordinate = LocationY - 1, endColumnCoordinate = LocationY + 1;
+            int startRowCoordinate = 0, endRowCoordinate = 0, startColumnCoordinate = 0, endColumnCoordinate = 0;
             SetVisionParameters(ref startRowCoordinate, ref endRowCoordinate, ref startColumnCoordinate, ref endColumnCoordinate);
 
             for (int rowCoordinate = startRowCoordinate; rowCoordinate < endRowCoordinate; rowCoordinate++)
@@ -49,7 +49,7 @@ namespace SavannaConsoleGame.SavannaLogic
 
             if (rowCoordinate == -1 && columnCoordinate == -1)
             {
-                int startRowCoordinate = LocationX - 1, endRowCoordinate = LocationX + 2, startColumnCoordinate = LocationY - 1, endColumnCoordinate = LocationY + 2;
+                int startRowCoordinate = 0, endRowCoordinate = 0, startColumnCoordinate = 0, endColumnCoordinate = 0;
                 SetVisionParameters(ref startRowCoordinate, ref endRowCoordinate, ref startColumnCoordinate, ref endColumnCoordinate);
 
                 while (approach != true)
@@ -75,9 +75,7 @@ namespace SavannaConsoleGame.SavannaLogic
                             approach = true;
                         }
                     }
-
                 }
-                
             }
             else SpecialAction();
         }
@@ -105,9 +103,9 @@ namespace SavannaConsoleGame.SavannaLogic
         private void SetVisionParameters(ref int startRowCoordinate, ref int endRowCoordinate, ref int startColumnCoordinate, ref int endColumnCoordinate)
         {
             startRowCoordinate = LocationX - 1;
-            endRowCoordinate = LocationX + 1;
+            endRowCoordinate = LocationX + 2;
             startColumnCoordinate = LocationY - 1;
-            endColumnCoordinate = LocationY + 1;
+            endColumnCoordinate = LocationY + 2;
 
             if (LocationX == 0) startRowCoordinate = LocationX;
             if (LocationX == GameField.FieldLength - 1) endRowCoordinate = GameField.FieldLength;
