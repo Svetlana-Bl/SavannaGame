@@ -8,7 +8,7 @@ namespace SavannaConsoleGame.SavannaLogic
         public Lion() : base()
         {
             LiveState = true;
-            Health = 5;
+            Health = 20;
             Color = "";
         }
 

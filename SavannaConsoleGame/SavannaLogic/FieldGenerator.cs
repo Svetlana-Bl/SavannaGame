@@ -1,20 +1,20 @@
-﻿namespace SavannaConsoleGame.SavannaLogic
+﻿using SavannaConsoleGame.Models;
+
+namespace SavannaConsoleGame.SavannaLogic
 {
     public class FieldGenerator
     {
-        public static char[,] GenerateSavannaField(int fieldLength, int fieldWidth)
+        public static void GenerateSavannaField()
         {
-            char[,] savannaField = new char[fieldLength, fieldWidth];
+            GameField.Field = new char[GameField.FieldLength, GameField.FieldWidth];
 
-            for (int i = 0; i < fieldLength; i++)
+            for (int i = 0; i < GameField.FieldLength; i++)
             {
-                for (int j = 0; j < fieldWidth; j++)
+                for (int j = 0; j < GameField.FieldWidth; j++)
                 {
-                    savannaField[i, j] = '_';
+                    GameField.Field[i, j] = '_';
                 }
             }
-
-            return savannaField;
         }
     }
 }

@@ -1,9 +1,9 @@
 ﻿namespace SavannaConsoleGame.Models
 {
-    public class GameField
+    public static class GameField
     {
-        public char[,] Field;
-        public int FieldLength { get; set; }
-        public int FieldWidth { get; set; }
+        public static char[,] Field;
+        public static int FieldLength { get; set; }
+        public static int FieldWidth { get; set; }
     }
 }

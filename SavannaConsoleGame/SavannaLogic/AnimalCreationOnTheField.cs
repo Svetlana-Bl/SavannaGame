@@ -1,21 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
 using SavannaConsoleGame.Models;
 
 namespace SavannaConsoleGame.SavannaLogic
 {
     public class AnimalCreationOnTheField
     {
-        private static List<Animal> _currentAnimals = new List<Animal>();
-        public static GameField _gameField = new GameField();
-
-        public AnimalCreationOnTheField(GameField gameField, List<Animal> currentAnimals)
-        {
-            _gameField = gameField;
-            _currentAnimals = currentAnimals;
-        }
-
-        public void WaitButtonPress()//redo this while-> make possibility to automaticaly understand what type of animal it is
+        public static void WaitButtonPress()//redo this while-> make possibility to automaticaly understand what type of animal it is
         {
             while (true)
             {
@@ -23,11 +13,11 @@ namespace SavannaConsoleGame.SavannaLogic
                 switch (key.Key)
                 {
                     case ConsoleKey.A:
-                        CreateNewAnimal(_gameField, 'A');
+                        CreateNewAnimal('A');
                         break;
 
                     case ConsoleKey.L:
-                        CreateNewAnimal(_gameField, 'L');
+                        CreateNewAnimal('L');
                         break;
 
                     default:
@@ -36,7 +26,7 @@ namespace SavannaConsoleGame.SavannaLogic
             }
         }
 
-        private static void CreateNewAnimal(GameField gameField, char animal)
+        private static void CreateNewAnimal(char animal)//TODO: add max count of animals on the field
         {
             Random rand = new Random();
             int x, y;
@@ -44,32 +34,30 @@ namespace SavannaConsoleGame.SavannaLogic
 
             while (approach != true)
             {
-                x = rand.Next(0, gameField.FieldLength);
-                y = rand.Next(0, gameField.FieldWidth);
+                x = rand.Next(0, GameField.FieldLength);
+                y = rand.Next(0, GameField.FieldWidth);
 
-                if (gameField.Field[x, y] == '_')
+                if (GameField.Field[x, y] == '_' && CurrentAnimals.Animals.Count<=20)
                 {
-                    gameField.Field[x, y] = animal;
+                    GameField.Field[x, y] = animal;
                     approach = true;
+                    
+                    Animal newAnimal = CheckAnimalType(animal);
 
-                    //TODO: create method to check what animal it is
-                    Animal newAnimal;
-                    if (animal == 'A')
-                        newAnimal = new Antelope();
-                    else newAnimal = new Lion();
-
-                    newAnimal.LocationX =x;
+                    newAnimal.LocationX = x;
                     newAnimal.LocationY = y;
-                    _currentAnimals.Add(newAnimal);
+                    CurrentAnimals.Animals.Add(newAnimal);
                 }
             }
-            _gameField = gameField;
-            //TODO: add max count of animals on the field
         }
 
-        public static List<Animal> GetAnimals()
+        private static Animal CheckAnimalType(char animal)//TODO: create auto check what animal it is
         {
-            return _currentAnimals;
+            Animal newAnimal;
+            if (animal == 'A')
+                newAnimal = new Antelope();
+            else newAnimal = new Lion();
+            return newAnimal;
         }
         
     }

@@ -8,21 +8,11 @@ namespace SavannaConsoleGame.SavannaLogic
 {
     public class SavannaEngine
     {
-        AnimalCreationOnTheField newAnimalManager;
-        Mutex mutex = new Mutex();
-        List<char> buttonChoise = new List<char>();
+        static Mutex mutex = new Mutex();
 
-        private List<Animal> _currentAnimals = new List<Animal>();
-        private GameField _gameField = new GameField();
-
-        public void StartWildLife(GameField gameField)
+        public static void StartWildLife()
         {
-            _gameField = gameField;
-            buttonChoise.Add('A');
-            buttonChoise.Add('L');
-            newAnimalManager = new AnimalCreationOnTheField(_gameField, _currentAnimals);
-
-            Thread GameThread = new Thread(new ThreadStart(newAnimalManager.WaitButtonPress));
+            Thread GameThread = new Thread(new ThreadStart(AnimalCreationOnTheField.WaitButtonPress));
             GameThread.Name = String.Format("GameThread");
             GameThread.Start();
 
@@ -31,33 +21,31 @@ namespace SavannaConsoleGame.SavannaLogic
             SavannasThread.Start();
         }
 
-        private void Start()
+        private static void Start()
         {
             while (true)
             {
                 if (mutex.WaitOne())
                 {
                     UpdateCurrentAnimals();
-                    ConsoleOutput.ShowGameField(_gameField, buttonChoise);
-                    //Console.WriteLine("{0}", _currentAnimals[1].Health);
+                    ConsoleOutput.ShowGameField();
                     Thread.Sleep(1000);
                     Console.SetCursorPosition(0,0);
+                    //Console.Clear();
                 }
                 mutex.ReleaseMutex();
             }
         }
 
-        private void UpdateCurrentAnimals()
+        private static void UpdateCurrentAnimals()
         {
-            _currentAnimals = AnimalCreationOnTheField.GetAnimals();
-
-            for (int i = 0; i < _currentAnimals.Count; i++)
+            for (int i = 0; i < CurrentAnimals.Animals.Count; i++)
             {
-                _currentAnimals[i].DecreaseHealth();
-                if (_currentAnimals[i].LiveState == false)
+                CurrentAnimals.Animals[i].DecreaseHealth();
+                if (CurrentAnimals.Animals[i].LiveState == false)
                 {
-                    _gameField.Field[_currentAnimals[i].LocationX, _currentAnimals[i].LocationY] = '_';
-                    _currentAnimals.RemoveAt(i);
+                    GameField.Field[CurrentAnimals.Animals[i].LocationX, CurrentAnimals.Animals[i].LocationY] = '_';
+                    CurrentAnimals.Animals.RemoveAt(i);
                     i--;
                 }
             }

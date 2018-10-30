@@ -1,16 +1,18 @@
 ﻿using System;
 using System.Threading;
+using SavannaConsoleGame.Models;
 
 namespace SavannaConsoleGame.ConsoleLogic
 {
     public class ConsoleInput
     {
-         public static void InputHeightAndWidthOfField(ref int fieldHeight, ref int fieldWidth)
+         public static void InputLengthAndWidthOfField()
          {
             ConsoleOutput.RequestFieldLength();
-            fieldHeight = CheckInputLengthOrWidth();
+            GameField.FieldLength = CheckInputLengthOrWidth();
+
             ConsoleOutput.RequestFieldWidth();
-            fieldWidth = CheckInputLengthOrWidth();
+            GameField.FieldWidth = CheckInputLengthOrWidth();
 
             Console.Clear();   
          }

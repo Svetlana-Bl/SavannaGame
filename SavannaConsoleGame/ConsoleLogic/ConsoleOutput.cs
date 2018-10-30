@@ -28,23 +28,28 @@ namespace SavannaConsoleGame.ConsoleLogic
             Console.WriteLine("\nRules: Press on buttons to create new animal. L - lion, A - antelope.\n");
         }
 
-        public static void ShowGameField(GameField gameField, List<char> buttonsToEnter)
+        public static void ShowGameField()
         {
-            Console.Write("Press on any from this button to create new animal: ");
-            for (int i = 0; i < buttonsToEnter.Count; i++)
-            { 
-                Console.Write("{0} ", buttonsToEnter[i]);
-            }
-            for (int i = 0; i < gameField.FieldLength; i++)
+            ShowButtonChoise();
+            for (int i = 0; i < GameField.FieldLength; i++)
             {
                 Console.Write("\n");
 
-                for (int j = 0; j < gameField.FieldWidth; j++)
+                for (int j = 0; j < GameField.FieldWidth; j++)
                 {
-                    Console.Write(String.Format("{0,3}", gameField.Field[i, j]));
+                    Console.Write(String.Format("{0,3}", GameField.Field[i, j]));
                 }
             }
             Console.WriteLine("\n");
+        }
+
+        public static void ShowButtonChoise()
+        {
+            Console.Write("Press on any from this button to create new animal: ");
+            for (int i = 0; i < CurrentAnimals.ButtonChoise.Count; i++)
+            {
+                Console.Write("{0} ", CurrentAnimals.ButtonChoise[i]);
+            }
         }
 
     }
