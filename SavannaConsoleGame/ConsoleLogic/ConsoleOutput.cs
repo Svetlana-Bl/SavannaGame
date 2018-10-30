@@ -36,7 +36,7 @@ namespace SavannaConsoleGame.ConsoleLogic
                 Console.Write("\n");
                 for (int j = 0; j < GameField.FieldWidth; j++)
                 {
-                    Console.Write(String.Format("{0,3}", GameField.Field[i, j]));
+                    Console.Write(string.Format("{0,3}", GameField.Field[i, j]));
                 }
             }
             Console.WriteLine("\n");

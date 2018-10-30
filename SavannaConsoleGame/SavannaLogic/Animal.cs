@@ -6,7 +6,8 @@ namespace SavannaConsoleGame.SavannaLogic
     public abstract class Animal
     {
         private double _health;
-        public double Health {
+        public double Health
+        {
             get { return _health; }
             set
             {
@@ -23,7 +24,7 @@ namespace SavannaConsoleGame.SavannaLogic
         public void UpdateVision(char animal, ref int x, ref int y)
         {
             int startRowCoordinate = 0, endRowCoordinate = 0, startColumnCoordinate = 0, endColumnCoordinate = 0;
-            SetVisionParameters(ref startRowCoordinate, ref endRowCoordinate, ref startColumnCoordinate, ref endColumnCoordinate);
+            VisionRangeFocus(ref startRowCoordinate, ref endRowCoordinate, ref startColumnCoordinate, ref endColumnCoordinate);
 
             for (int rowCoordinate = startRowCoordinate; rowCoordinate < endRowCoordinate; rowCoordinate++)
             {
@@ -44,13 +45,9 @@ namespace SavannaConsoleGame.SavannaLogic
         public void Move()
         {
             bool approach = false;
-            int rowCoordinate = -1, columnCoordinate = -1;
-            UpdateVision('L', ref rowCoordinate, ref columnCoordinate);
-
-            if (rowCoordinate == -1 && columnCoordinate == -1)
-            {
+            
                 int startRowCoordinate = 0, endRowCoordinate = 0, startColumnCoordinate = 0, endColumnCoordinate = 0;
-                SetVisionParameters(ref startRowCoordinate, ref endRowCoordinate, ref startColumnCoordinate, ref endColumnCoordinate);
+                VisionRangeFocus(ref startRowCoordinate, ref endRowCoordinate, ref startColumnCoordinate, ref endColumnCoordinate);
 
                 while (approach != true)
                 {
@@ -76,13 +73,11 @@ namespace SavannaConsoleGame.SavannaLogic
                         }
                     }
                 }
-            }
-            else SpecialAction();
         }
 
         public virtual void SpecialAction()
         {
-
+            Move();
         }
 
         public virtual void DecreaseHealth()
@@ -100,7 +95,7 @@ namespace SavannaConsoleGame.SavannaLogic
             LiveState = false;
         }
 
-        private void SetVisionParameters(ref int startRowCoordinate, ref int endRowCoordinate, ref int startColumnCoordinate, ref int endColumnCoordinate)
+        private void VisionRangeFocus(ref int startRowCoordinate, ref int endRowCoordinate, ref int startColumnCoordinate, ref int endColumnCoordinate)
         {
             startRowCoordinate = LocationX - 1;
             endRowCoordinate = LocationX + 2;

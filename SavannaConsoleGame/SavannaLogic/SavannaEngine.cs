@@ -12,11 +12,11 @@ namespace SavannaConsoleGame.SavannaLogic
         public static void StartWildLife()
         {
             Thread GameThread = new Thread(new ThreadStart(AnimalCreationOnTheField.WaitButtonPress));
-            GameThread.Name = String.Format("GameThread");
+            GameThread.Name = "GameThread";
             GameThread.Start();
 
             Thread SavannasThread = new Thread(new ThreadStart(Start));
-            SavannasThread.Name = String.Format("SavannasThread");
+            SavannasThread.Name = "SavannasThread";
             SavannasThread.Start();
         }
 
@@ -28,7 +28,7 @@ namespace SavannaConsoleGame.SavannaLogic
                 {
                     UpdateCurrentAnimals();
                     ConsoleOutput.ShowGameField();
-                    if (CurrentAnimals.Animals.Count>=1)
+                    if (CurrentAnimals.Animals.Count >= 1)
                     {
                         GameField.NextStepField = FieldGenerator.GenerateSavannaField();
                         int i = 0;

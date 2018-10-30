@@ -13,7 +13,17 @@ namespace SavannaConsoleGame.SavannaLogic
 
         public override void SpecialAction()
         {
+            int rowCoordinate = -1, columnCoordinate = -1;
+            UpdateVision('L', ref rowCoordinate, ref columnCoordinate);
 
+            if (rowCoordinate == -1 && columnCoordinate == -1)
+            {
+                Move();
+            }
+            else
+            {
+
+            }
         }
 
         public void UpdateVisionRange()
