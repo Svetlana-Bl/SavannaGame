@@ -58,7 +58,7 @@ namespace SavannaConsoleGame.SavannaLogic
                 int i = 0;
                 while (i < SavannaAnimals.Animals.Count)
                 {
-                    SavannaAnimals.Animals[i].Move();
+                    SavannaAnimals.Animals[i].Behavior();
                     i++;
                 }
                 GameField.Field = GameField.NextStepField;

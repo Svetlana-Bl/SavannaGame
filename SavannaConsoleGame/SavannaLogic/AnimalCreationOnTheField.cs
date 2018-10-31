@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using SavannaConsoleGame.Models;
-using SavannaConsoleGame.SavannaLogic.Animals;
 
 namespace SavannaConsoleGame.SavannaLogic
 {
@@ -13,7 +12,9 @@ namespace SavannaConsoleGame.SavannaLogic
             {
                 var key = Console.ReadKey();
                 if (ButtonsDictionary.AnimalsAndLetters.ContainsKey((char)key.Key))
+                {
                     CreateNewAnimal((char)key.Key);
+                }
             }
         }
 
@@ -46,19 +47,37 @@ namespace SavannaConsoleGame.SavannaLogic
         {
             Animal newAnimal = null;
 
-            foreach (KeyValuePair<char, Animal> button in ButtonsDictionary.AnimalsAndLetters)
+            if (ButtonsDictionary.AnimalsAndLetters.ContainsKey(animal))
             {
-                if (ButtonsDictionary.AnimalsAndLetters.ContainsKey(animal))
-                {
-                    newAnimal = ButtonsDictionary.AnimalsAndLetters[animal];
-                    newAnimal.ButtonSymbol = animal;
-                    break;
-                }
-
+                newAnimal = ButtonsDictionary.AnimalsAndLetters[animal];
+                newAnimal.ButtonSymbol = animal;
+                newAnimal = SetAnimalsParameters(newAnimal)
             }
-
             return newAnimal;
         }
 
+        private static Animal SetAnimalsParameters(Animal animal)
+        {
+            animal.LiveState = true;
+
+            foreach (KeyValuePair<char, Animal> a in ButtonsDictionary.AnimalsAndLetters)
+            {
+                if (a.Value.GetType() != animal.GetType())
+                {
+                    if (animal.Predator == true)
+                    {
+                        if (a.Value.Predator != true)
+                            animal.Prey.Add(a.Key);
+                    }
+                    else
+                    {
+                        if (a.Value.Predator == true)
+                            animal.Enemies.Add(a.Key);
+                    }
+                }
+            }
+
+            return animal;
+        }
     }
 }

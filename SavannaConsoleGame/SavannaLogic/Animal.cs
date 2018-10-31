@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using SavannaConsoleGame.Models;
 
 namespace SavannaConsoleGame.SavannaLogic
@@ -16,10 +17,48 @@ namespace SavannaConsoleGame.SavannaLogic
                 _health = value;
             }
         }
+
         public char ButtonSymbol { get; set; }
         public bool LiveState { get; set; }
+        public bool Predator { get; set; }
         public int LocationX { get; set; }
         public int LocationY { get; set; }
+        public List<char> Enemies { get; set; }
+        public List<char> Prey { get; set; }
+
+        public virtual void Behavior()
+        {
+            int rowCoordinate = -1, columnCoordinate = -1;
+            List<char> animals;
+
+            if (Predator == true)
+            {
+                animals = Enemies;
+            }
+            else
+            {
+                animals = Prey;
+            }
+
+            int i = 0;
+            while (animals.Count - 1 != i)
+            {
+                i++;
+                if (rowCoordinate != -1 && columnCoordinate != -1)
+                    break;
+                UpdateVision(animals[i], ref rowCoordinate, ref columnCoordinate);
+            }
+
+
+            if (rowCoordinate == -1 && columnCoordinate == -1)
+            {
+                Move();
+            }
+            else
+            {
+                SpecialAction();
+            }
+        }
 
         public void UpdateVision(char animal, ref int x, ref int y)
         {
@@ -104,7 +143,6 @@ namespace SavannaConsoleGame.SavannaLogic
             if (LocationX == GameField.FieldLength - 1) endRowCoordinate = GameField.FieldLength;
             if (LocationY == 0) startColumnCoordinate = LocationY;
             if (LocationY == GameField.FieldWidth - 1) endColumnCoordinate = GameField.FieldWidth;
-            return;
         }
     }
 }

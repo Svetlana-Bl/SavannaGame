@@ -6,26 +6,13 @@ namespace SavannaConsoleGame.SavannaLogic.Animals
     {
         public Lion() : base()
         {
-            LiveState = true;
             Health = 10;
+            Predator = true;
         }
 
         public override void SpecialAction()
         {
             //life level increase
-
-            int rowCoordinate = -1, columnCoordinate = -1;
-            UpdateVision('A', ref rowCoordinate, ref columnCoordinate);
-
-            if (rowCoordinate == -1 && columnCoordinate == -1)
-            {
-                Move();
-            }
-            else
-            {
-
-            }
         }
-
     }
 }

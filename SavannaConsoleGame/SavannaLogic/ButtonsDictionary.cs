@@ -17,6 +17,7 @@ namespace SavannaConsoleGame.SavannaLogic
                 string[] animals = Directory.GetFiles(path);
                 foreach (string animal in animals)
                 {
+                    //System.Type type = animal.GetType();
                     //AnimalsAndLetters.Add(animal.Substring(0, 1), animal);
                 }
             }
