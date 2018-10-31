@@ -7,7 +7,7 @@ namespace SavannaConsoleGame.SavannaLogic
 {
     public class AnimalCreationOnTheField
     {
-        public static void WaitButtonPress()//redo this while-> make possibility to automaticaly understand what type of animal it is
+        public static void WaitButtonPress()
         {
             while (true)
             {
@@ -17,7 +17,7 @@ namespace SavannaConsoleGame.SavannaLogic
             }
         }
 
-        private static void CreateNewAnimal(char animal)//TODO: add max count of animals on the field
+        private static void CreateNewAnimal(char animal)
         {
             Random rand = new Random();
             int x, y;
@@ -49,7 +49,12 @@ namespace SavannaConsoleGame.SavannaLogic
             foreach (KeyValuePair<char, Animal> button in ButtonsDictionary.AnimalsAndLetters)
             {
                 if (ButtonsDictionary.AnimalsAndLetters.ContainsKey(animal))
+                {
                     newAnimal = ButtonsDictionary.AnimalsAndLetters[animal];
+                    newAnimal.ButtonSymbol = animal;
+                    break;
+                }
+
             }
 
             return newAnimal;

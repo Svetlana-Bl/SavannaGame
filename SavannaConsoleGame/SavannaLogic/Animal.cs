@@ -16,7 +16,7 @@ namespace SavannaConsoleGame.SavannaLogic
                 _health = value;
             }
         }
-
+        public char ButtonSymbol { get; set; }
         public bool LiveState { get; set; }
         public int LocationX { get; set; }
         public int LocationY { get; set; }
@@ -51,8 +51,6 @@ namespace SavannaConsoleGame.SavannaLogic
 
             while (approach != true)
             {
-                //Random random = new Random();
-
                 int randomX, randomY;
                 randomX = random.Next(startRowCoordinate, endRowCoordinate);
                 randomY = random.Next(startColumnCoordinate, endColumnCoordinate);
