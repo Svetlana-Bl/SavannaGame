@@ -51,7 +51,7 @@ namespace SavannaConsoleGame.SavannaLogic
             {
                 newAnimal = ButtonsDictionary.AnimalsAndLetters[animal];
                 newAnimal.ButtonSymbol = animal;
-                newAnimal = SetAnimalsParameters(newAnimal)
+                newAnimal = SetAnimalsParameters(newAnimal);
             }
             return newAnimal;
         }
