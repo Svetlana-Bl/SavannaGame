@@ -26,38 +26,43 @@ namespace SavannaConsoleGame.SavannaLogic
             {
                 if (mutex.WaitOne())
                 {
-                    UpdateCurrentAnimals();
                     ConsoleOutput.ShowGameField();
-                    if (CurrentAnimals.Animals.Count >= 1)
-                    {
-                        GameField.NextStepField = FieldGenerator.GenerateSavannaField();
-                        int i = 0;
-                        while (i <CurrentAnimals.Animals.Count)
-                        {
-                            CurrentAnimals.Animals[i].Move();
-                            i++;
-                        }
-                        GameField.Field = GameField.NextStepField;
-                    }
+                    UpdateCurrentAnimalsHealth();
+                    MoveCurrentAnimals();
                     Thread.Sleep(1000);
-                    Console.SetCursorPosition(0,0);
+                    Console.SetCursorPosition(0, 0);
                     //Console.Clear();
                 }
                 mutex.ReleaseMutex();
             }
         }
 
-        private static void UpdateCurrentAnimals()
+        private static void UpdateCurrentAnimalsHealth()
         {
-            for (int i = 0; i < CurrentAnimals.Animals.Count; i++)
+            for (int i = 0; i < SavannaAnimals.Animals.Count; i++)
             {
-                CurrentAnimals.Animals[i].DecreaseHealth();
-                if (CurrentAnimals.Animals[i].LiveState == false)
+                SavannaAnimals.Animals[i].DecreaseHealth();
+                if (SavannaAnimals.Animals[i].LiveState == false)
                 {
-                    GameField.Field[CurrentAnimals.Animals[i].LocationX, CurrentAnimals.Animals[i].LocationY] = '_';
-                    CurrentAnimals.Animals.RemoveAt(i);
+                    GameField.Field[SavannaAnimals.Animals[i].LocationX, SavannaAnimals.Animals[i].LocationY] = '_';
+                    SavannaAnimals.Animals.RemoveAt(i);
                     i--;
                 }
+            }
+        }
+
+        private static void MoveCurrentAnimals()
+        {
+            if (SavannaAnimals.Animals.Count >= 1)
+            {
+                GameField.NextStepField = FieldGenerator.GenerateSavannaField();
+                int i = 0;
+                while (i < SavannaAnimals.Animals.Count)
+                {
+                    SavannaAnimals.Animals[i].Move();
+                    i++;
+                }
+                GameField.Field = GameField.NextStepField;
             }
         }
 

@@ -28,17 +28,18 @@ namespace SavannaConsoleGame.ConsoleLogic
                 parameter = Console.ReadLine();
                 if (int.TryParse(parameter, out parameterToInt))
                 {
-                    Valid = true;
-                    if (Math.Abs(parameterToInt) < 10)
+                    parameterToInt = Math.Abs(Convert.ToInt32(parameter));
+                    if (parameterToInt < 10)
                     {
+                        Console.WriteLine("Entered number is too low. Try again.", parameterToInt);
                         parameterToInt = 10;
-                        Console.WriteLine("Number {0} is too low. Default is 10", Math.Abs(Convert.ToInt32(parameter)));
-                    } else if (Math.Abs(parameterToInt) > 25)
+                        
+                    } else if (parameterToInt > 25)
                     {
                         parameterToInt = 25;
-                        Console.WriteLine("Number {0} is too high. Default is 25", Math.Abs(Convert.ToInt32(parameter)));
-                    } else parameterToInt = Math.Abs(Convert.ToInt32(parameter));
-                    Thread.Sleep(1000);
+                        Console.WriteLine("Entered number is too high.Try again.", parameterToInt);
+                    }else
+                        Valid = true; 
                 }
                 else
                 {

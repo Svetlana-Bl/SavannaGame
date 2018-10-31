@@ -5,18 +5,18 @@ namespace SavannaConsoleGame.SavannaLogic
 {
     public abstract class Animal
     {
+        static Random random = new Random();
         private double _health;
         public double Health
         {
             get { return _health; }
             set
             {
-                if (value == 0) Die();
+                if (value <= 0) Die();
                 _health = value;
             }
         }
 
-        public char ButtonSymbol { get; set; }
         public bool LiveState { get; set; }
         public int LocationX { get; set; }
         public int LocationY { get; set; }
@@ -39,40 +39,40 @@ namespace SavannaConsoleGame.SavannaLogic
                         break;
                     }
                 }
-            } 
+            }
         }
 
         public void Move()
         {
             bool approach = false;
-            
-                int startRowCoordinate = 0, endRowCoordinate = 0, startColumnCoordinate = 0, endColumnCoordinate = 0;
-                VisionRangeFocus(ref startRowCoordinate, ref endRowCoordinate, ref startColumnCoordinate, ref endColumnCoordinate);
 
-                while (approach != true)
+            int startRowCoordinate = 0, endRowCoordinate = 0, startColumnCoordinate = 0, endColumnCoordinate = 0;
+            VisionRangeFocus(ref startRowCoordinate, ref endRowCoordinate, ref startColumnCoordinate, ref endColumnCoordinate);
+
+            while (approach != true)
+            {
+                //Random random = new Random();
+
+                int randomX, randomY;
+                randomX = random.Next(startRowCoordinate, endRowCoordinate);
+                randomY = random.Next(startColumnCoordinate, endColumnCoordinate);
+
+                if (LocationX == randomX && LocationY == randomY)
                 {
-                    Random random = new Random();
+                    continue;
+                }
+                else
+                {
+                    LocationX = randomX;
+                    LocationY = randomY;
 
-                    int randomX, randomY;
-                    randomX = random.Next(startRowCoordinate, endRowCoordinate);
-                    randomY = random.Next(startColumnCoordinate, endColumnCoordinate);
-
-                    if (LocationX == randomX && LocationY == randomY)
+                    if (GameField.NextStepField[LocationX, LocationY] == '_')
                     {
-                        continue;
-                    }
-                    else
-                    {
-                        LocationX = randomX;
-                        LocationY = randomY;
-
-                        if (GameField.NextStepField[LocationX, LocationY] == '_')
-                        {
-                            GameField.NextStepField[LocationX, LocationY] = ButtonSymbol;
-                            approach = true;
-                        }
+                        GameField.NextStepField[LocationX, LocationY] = ButtonSymbol;
+                        approach = true;
                     }
                 }
+            }
         }
 
         public virtual void SpecialAction()

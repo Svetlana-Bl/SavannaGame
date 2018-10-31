@@ -1,6 +1,6 @@
 ﻿using SavannaConsoleGame.Interfaces;
 
-namespace SavannaConsoleGame.SavannaLogic
+namespace SavannaConsoleGame.SavannaLogic.Animals
 {
     public class Antelope : Animal, IAnimalBehavior
     {
@@ -8,7 +8,6 @@ namespace SavannaConsoleGame.SavannaLogic
         {
             LiveState = true;
             Health = 10;
-            ButtonSymbol = 'A';
         }
 
         public override void SpecialAction()

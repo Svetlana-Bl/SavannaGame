@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using SavannaConsoleGame.Models;
+using SavannaConsoleGame.SavannaLogic;
 
 namespace SavannaConsoleGame.ConsoleLogic
 {
@@ -15,12 +16,12 @@ namespace SavannaConsoleGame.ConsoleLogic
 
         public static void RequestFieldLength()
         {
-            Console.WriteLine("\nEnter field length (number from 10 to 25), then press Enter: ");
+            Console.Write("\nEnter field length (number from 10 to 25), then press Enter: ");
         }
 
         public static void RequestFieldWidth()
         {
-            Console.WriteLine("\nEnter field width (number from 10 to 25), then press Enter: ");
+            Console.Write("\nEnter field width (number from 10 to 25), then press Enter: ");
         }
 
         public static void GameRules()
@@ -45,9 +46,9 @@ namespace SavannaConsoleGame.ConsoleLogic
         public static void ShowButtonChoise()
         {
             Console.Write("Press on any from this button to create new animal: ");
-            for (int i = 0; i < CurrentAnimals.ButtonChoise.Count; i++)
+            foreach (KeyValuePair<char, Animal> button in ButtonsDictionary.AnimalsAndLetters)
             {
-                Console.Write("{0} ", CurrentAnimals.ButtonChoise[i]);
+                Console.Write("{0} ", button.Key);
             }
         }
 

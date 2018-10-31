@@ -46,7 +46,7 @@
     <Compile Include="ConsoleLogic\ConsoleOutput.cs" />
     <Compile Include="ConsoleLogic\ConsoleInput.cs" />
     <Compile Include="Interfaces\IAnimalBehavior.cs" />
-    <Compile Include="Models\CurrentAnimals.cs" />
+    <Compile Include="Models\SavannaAnimals.cs" />
     <Compile Include="Models\GameField.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -55,6 +55,7 @@
     <Compile Include="SavannaLogic\Animals\Antelope.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="SavannaLogic\Animals\Lion.cs" />
+    <Compile Include="SavannaLogic\ButtonsDictionary.cs" />
     <Compile Include="SavannaLogic\SavannaEngine.cs" />
     <Compile Include="SavannaLogic\FieldGenerator.cs" />
   </ItemGroup>

@@ -1,15 +1,13 @@
 ﻿using SavannaConsoleGame.Interfaces;
 
-namespace SavannaConsoleGame.SavannaLogic
+namespace SavannaConsoleGame.SavannaLogic.Animals
 {
     public class Lion : Animal, IAnimalBehavior
     {
-        public const char animalButton = 'A';
         public Lion() : base()
         {
             LiveState = true;
             Health = 10;
-            ButtonSymbol = 'L';
         }
 
         public override void SpecialAction()

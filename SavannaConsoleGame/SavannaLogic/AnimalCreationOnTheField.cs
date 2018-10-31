@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using SavannaConsoleGame.Models;
+using SavannaConsoleGame.SavannaLogic.Animals;
 
 namespace SavannaConsoleGame.SavannaLogic
 {
@@ -10,19 +12,8 @@ namespace SavannaConsoleGame.SavannaLogic
             while (true)
             {
                 var key = Console.ReadKey();
-                switch (key.Key)
-                {
-                    case ConsoleKey.A:
-                        CreateNewAnimal('A');
-                        break;
-
-                    case ConsoleKey.L:
-                        CreateNewAnimal('L');
-                        break;
-
-                    default:
-                        break;
-                }
+                if (ButtonsDictionary.AnimalsAndLetters.ContainsKey((char)key.Key))
+                    CreateNewAnimal((char)key.Key);
             }
         }
 
@@ -37,28 +28,32 @@ namespace SavannaConsoleGame.SavannaLogic
                 x = rand.Next(0, GameField.FieldLength);
                 y = rand.Next(0, GameField.FieldWidth);
 
-                if (GameField.Field[x, y] == '_' && CurrentAnimals.Animals.Count<=20)
+                if (GameField.Field[x, y] == '_' && SavannaAnimals.Animals.Count <= 20)
                 {
                     GameField.Field[x, y] = animal;
                     approach = true;
-                    
+
                     Animal newAnimal = CheckAnimalType(animal);
 
                     newAnimal.LocationX = x;
                     newAnimal.LocationY = y;
-                    CurrentAnimals.Animals.Add(newAnimal);
+                    SavannaAnimals.Animals.Add(newAnimal);
                 }
             }
         }
 
-        private static Animal CheckAnimalType(char animal)//TODO: create auto check what animal it is
+        private static Animal CheckAnimalType(char animal)
         {
-            Animal newAnimal;
-            if (animal == 'A')
-                newAnimal = new Antelope();
-            else newAnimal = new Lion();
+            Animal newAnimal = null;
+
+            foreach (KeyValuePair<char, Animal> button in ButtonsDictionary.AnimalsAndLetters)
+            {
+                if (ButtonsDictionary.AnimalsAndLetters.ContainsKey(animal))
+                    newAnimal = ButtonsDictionary.AnimalsAndLetters[animal];
+            }
+
             return newAnimal;
         }
-        
+
     }
 }
