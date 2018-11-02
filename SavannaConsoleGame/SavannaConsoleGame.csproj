@@ -55,7 +55,7 @@
     <Compile Include="SavannaLogic\Animals\Antelope.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="SavannaLogic\Animals\Lion.cs" />
-    <Compile Include="SavannaLogic\ButtonsDictionary.cs" />
+    <Compile Include="SavannaLogic\SavannaDictionary.cs" />
     <Compile Include="SavannaLogic\SavannaEngine.cs" />
     <Compile Include="SavannaLogic\FieldGenerator.cs" />
   </ItemGroup>

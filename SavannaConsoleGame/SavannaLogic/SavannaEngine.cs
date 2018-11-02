@@ -15,28 +15,25 @@ namespace SavannaConsoleGame.SavannaLogic
             GameThread.Name = "GameThread";
             GameThread.Start();
 
-            Thread SavannasThread = new Thread(new ThreadStart(Start));
+            Thread SavannasThread = new Thread(new ThreadStart(StartLifeLoop));
             SavannasThread.Name = "SavannasThread";
             SavannasThread.Start();
         }
 
-        private static void Start()
+        private static void StartLifeLoop()
         {
-            int i = 0;
             while (true)
             {
                 if (mutex.WaitOne())
                 {
-                    ConsoleOutput.ShowGameField();
-                    i++;
-                    for (int j = 0; j < SavannaAnimals.Animals.Count; j++)
-                        Console.WriteLine("Health {0} animal {1}", SavannaAnimals.Animals[j].ButtonSymbol, SavannaAnimals.Animals[j].Health);
-                    Console.WriteLine("Iteration{0} ", i);
                     UpdateCurrentAnimalsHealth();
+
+                    ConsoleOutput.ShowGameField();
+                    
                     MoveCurrentAnimals();
                     Thread.Sleep(1000);
-                    //Console.SetCursorPosition(0, 0);
-                    Console.Clear();
+                    Console.SetCursorPosition(0, 0);
+                    //Console.Clear();
                 }
                 mutex.ReleaseMutex();
             }

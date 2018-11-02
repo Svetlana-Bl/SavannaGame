@@ -4,11 +4,11 @@ using SavannaConsoleGame.SavannaLogic.Animals;
 
 namespace SavannaConsoleGame.SavannaLogic
 {
-    public class ButtonsDictionary
+    public class SavannaDictionary
     {
         public static Dictionary<char, System.Type> AnimalsAndLettersDictionary = new Dictionary<char, System.Type>();
 
-        public static void SetAnimalsButton()
+        public static void SetDictionaryParameters()
         {
             string path = "C:\\Users\\svetlana.bluma\\source\\repos\\SavannaConsoleGame\\SavannaConsoleGame\\SavannaLogic\\Animals";
 
@@ -23,7 +23,7 @@ namespace SavannaConsoleGame.SavannaLogic
             }
         }
 
-        public static void SetDefautAnimalButton()
+        public static void SetDefautDictionaryParameters()
         {
             AnimalsAndLettersDictionary.Add('A', typeof(Antelope));
             AnimalsAndLettersDictionary.Add('L', typeof(Lion));

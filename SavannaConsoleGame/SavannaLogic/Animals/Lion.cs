@@ -1,4 +1,5 @@
 ﻿using SavannaConsoleGame.Interfaces;
+using SavannaConsoleGame.Models;
 
 namespace SavannaConsoleGame.SavannaLogic.Animals
 {
@@ -9,9 +10,18 @@ namespace SavannaConsoleGame.SavannaLogic.Animals
             Predator = true;
         }
 
-        public override void SpecialAction()
+        public override void SpecialAction(int x, int y)
         {
-            //life level increase
+            foreach (Animal animal in SavannaAnimals.Animals)
+            {
+                if (animal.LocationX == x && animal.LocationY == y)
+                {
+                    GameField.Field[LocationX, LocationY] = '_';
+                    GameField.Field[x, y] = ButtonSymbol;
+                    animal.Health = 0;
+                    IncreaseHealth();
+                }
+            }
         }
     }
 }

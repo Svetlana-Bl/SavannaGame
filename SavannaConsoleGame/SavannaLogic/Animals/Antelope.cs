@@ -1,4 +1,5 @@
 ﻿using SavannaConsoleGame.Interfaces;
+using SavannaConsoleGame.Models;
 
 namespace SavannaConsoleGame.SavannaLogic.Animals
 {
@@ -6,11 +7,12 @@ namespace SavannaConsoleGame.SavannaLogic.Animals
     {
         public Antelope() : base()
         {
+
         }
 
-        public override void SpecialAction()
+        public override void SpecialAction(int x, int y)
         {
-            
+            Move();
         }
 
     }

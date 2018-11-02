@@ -8,7 +8,7 @@ namespace SavannaConsoleGame.SavannaLogic
     {
         public static void Run()
         {
-            ButtonsDictionary.SetDefautAnimalButton();
+            SavannaDictionary.SetDefautDictionaryParameters();
             ConsoleOutput.ShowIntroduction();
             ConsoleOutput.ShowGameRules();
             SetGameField();
@@ -18,7 +18,7 @@ namespace SavannaConsoleGame.SavannaLogic
         public static void SetGameField()
         {
             ConsoleInput.InputLengthAndWidthOfField();
-            Thread.Sleep(2000);
+            Thread.Sleep(1000);
             GameField.Field = FieldGenerator.GenerateSavannaField();
         }
     }

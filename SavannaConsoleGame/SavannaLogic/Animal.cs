@@ -43,12 +43,13 @@ namespace SavannaConsoleGame.SavannaLogic
             }
 
             int i = 0;
-            while (animals.Count - 1 != i)
+            while (animals.Count != i)
             {
-                i++;
+                
                 if (rowCoordinate != -1 && columnCoordinate != -1)
                     break;
                 UpdateVision(animals[i], ref rowCoordinate, ref columnCoordinate);
+                i++;
             }
 
 
@@ -58,8 +59,7 @@ namespace SavannaConsoleGame.SavannaLogic
             }
             else
             {
-                //SpecialAction();
-                Move();
+                SpecialAction(rowCoordinate, columnCoordinate);
             }
         }
 
@@ -97,12 +97,9 @@ namespace SavannaConsoleGame.SavannaLogic
                 randomX = random.Next(startRowCoordinate, endRowCoordinate);
                 randomY = random.Next(startColumnCoordinate, endColumnCoordinate);
 
-                if (LocationX == randomX && LocationY == randomY)
+                if (LocationX != randomX && LocationY != randomY)
                 {
-                    continue;
-                }
-                else
-                {
+                  
                     LocationX = randomX;
                     LocationY = randomY;
 
@@ -115,7 +112,7 @@ namespace SavannaConsoleGame.SavannaLogic
             }
         }
 
-        public virtual void SpecialAction()
+        public virtual void SpecialAction(int x, int y)
         {
             Move();
         }

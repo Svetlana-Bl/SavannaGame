@@ -11,7 +11,7 @@ namespace SavannaConsoleGame.SavannaLogic
             while (true)
             {
                 var key = Console.ReadKey();
-                if (ButtonsDictionary.AnimalsAndLettersDictionary.ContainsKey((char)key.Key))
+                if (SavannaDictionary.AnimalsAndLettersDictionary.ContainsKey((char)key.Key))
                 {
                     SetNewAnimalPosition((char)key.Key);
                 }
@@ -45,9 +45,9 @@ namespace SavannaConsoleGame.SavannaLogic
         private static Animal AddNewAnimal(char animal)
         {
             Animal newAnimal=null;
-            if (ButtonsDictionary.AnimalsAndLettersDictionary.ContainsKey(animal))
+            if (SavannaDictionary.AnimalsAndLettersDictionary.ContainsKey(animal))
             {
-                Type animalType = ButtonsDictionary.AnimalsAndLettersDictionary[animal];
+                Type animalType = SavannaDictionary.AnimalsAndLettersDictionary[animal];
                 newAnimal = (Animal)Activator.CreateInstance(animalType);
                 newAnimal.ButtonSymbol = animal;
                 SetAnimalsParameters(newAnimal);
@@ -62,7 +62,7 @@ namespace SavannaConsoleGame.SavannaLogic
             animal.Prey = new List<char>();
             animal.Enemies = new List<char>();
 
-            foreach (KeyValuePair<char, Type> a in ButtonsDictionary.AnimalsAndLettersDictionary)
+            foreach (KeyValuePair<char, Type> a in SavannaDictionary.AnimalsAndLettersDictionary)
             {
                 Animal animalToAnalize = null;
                 if (a.Value.GetType() != animal.GetType())
