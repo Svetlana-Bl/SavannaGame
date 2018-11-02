@@ -10,7 +10,7 @@ namespace SavannaConsoleGame.SavannaLogic
         {
             ButtonsDictionary.SetDefautAnimalButton();
             ConsoleOutput.ShowIntroduction();
-            ConsoleOutput.GameRules();
+            ConsoleOutput.ShowGameRules();
             SetGameField();
             SavannaEngine.StartWildLife();
         }

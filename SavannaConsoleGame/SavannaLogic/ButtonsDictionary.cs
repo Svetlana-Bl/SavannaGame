@@ -6,7 +6,7 @@ namespace SavannaConsoleGame.SavannaLogic
 {
     public class ButtonsDictionary
     {
-        public static Dictionary<char, Animal> AnimalsAndLetters = new Dictionary<char, Animal>();
+        public static Dictionary<char, System.Type> AnimalsAndLettersDictionary = new Dictionary<char, System.Type>();
 
         public static void SetAnimalsButton()
         {
@@ -25,8 +25,8 @@ namespace SavannaConsoleGame.SavannaLogic
 
         public static void SetDefautAnimalButton()
         {
-            AnimalsAndLetters.Add('A', new Antelope());
-            AnimalsAndLetters.Add('L', new Lion());
+            AnimalsAndLettersDictionary.Add('A', typeof(Antelope));
+            AnimalsAndLettersDictionary.Add('L', typeof(Lion));
         }
     }
 }

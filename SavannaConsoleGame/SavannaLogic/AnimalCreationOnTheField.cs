@@ -11,14 +11,14 @@ namespace SavannaConsoleGame.SavannaLogic
             while (true)
             {
                 var key = Console.ReadKey();
-                if (ButtonsDictionary.AnimalsAndLetters.ContainsKey((char)key.Key))
+                if (ButtonsDictionary.AnimalsAndLettersDictionary.ContainsKey((char)key.Key))
                 {
-                    CreateNewAnimal((char)key.Key);
+                    SetNewAnimalPosition((char)key.Key);
                 }
             }
         }
 
-        private static void CreateNewAnimal(char animal)
+        private static void SetNewAnimalPosition(char animal)
         {
             Random rand = new Random();
             int x, y;
@@ -33,9 +33,8 @@ namespace SavannaConsoleGame.SavannaLogic
                 {
                     GameField.Field[x, y] = animal;
                     approach = true;
-
-                    Animal newAnimal = CheckAnimalType(animal);
-
+                    
+                    Animal newAnimal = AddNewAnimal(animal);
                     newAnimal.LocationX = x;
                     newAnimal.LocationY = y;
                     SavannaAnimals.Animals.Add(newAnimal);
@@ -43,41 +42,45 @@ namespace SavannaConsoleGame.SavannaLogic
             }
         }
 
-        private static Animal CheckAnimalType(char animal)
+        private static Animal AddNewAnimal(char animal)
         {
-            Animal newAnimal = null;
-
-            if (ButtonsDictionary.AnimalsAndLetters.ContainsKey(animal))
+            Animal newAnimal=null;
+            if (ButtonsDictionary.AnimalsAndLettersDictionary.ContainsKey(animal))
             {
-                newAnimal = ButtonsDictionary.AnimalsAndLetters[animal];
+                Type animalType = ButtonsDictionary.AnimalsAndLettersDictionary[animal];
+                newAnimal = (Animal)Activator.CreateInstance(animalType);
                 newAnimal.ButtonSymbol = animal;
-                newAnimal = SetAnimalsParameters(newAnimal);
+                SetAnimalsParameters(newAnimal);
             }
             return newAnimal;
         }
 
-        private static Animal SetAnimalsParameters(Animal animal)
+        private static void SetAnimalsParameters(Animal animal)
         {
             animal.LiveState = true;
+            animal.Health = 10;
+            animal.Prey = new List<char>();
+            animal.Enemies = new List<char>();
 
-            foreach (KeyValuePair<char, Animal> a in ButtonsDictionary.AnimalsAndLetters)
+            foreach (KeyValuePair<char, Type> a in ButtonsDictionary.AnimalsAndLettersDictionary)
             {
+                Animal animalToAnalize = null;
                 if (a.Value.GetType() != animal.GetType())
                 {
+                    Type animalType = a.Value;
+                    animalToAnalize = (Animal)Activator.CreateInstance(animalType);
                     if (animal.Predator == true)
                     {
-                        if (a.Value.Predator != true)
+                        if (animalToAnalize.Predator != true)
                             animal.Prey.Add(a.Key);
                     }
                     else
                     {
-                        if (a.Value.Predator == true)
+                        if (animalToAnalize.Predator == true)
                             animal.Enemies.Add(a.Key);
                     }
                 }
             }
-
-            return animal;
         }
     }
 }

@@ -24,7 +24,7 @@ namespace SavannaConsoleGame.ConsoleLogic
             Console.Write("\nEnter field width (number from 10 to 25), then press Enter: ");
         }
 
-        public static void GameRules()
+        public static void ShowGameRules()
         {
             Console.WriteLine("\nRules: Press on buttons to create new animal. L - lion, A - antelope.\n");
         }
@@ -46,7 +46,7 @@ namespace SavannaConsoleGame.ConsoleLogic
         public static void ShowButtonChoise()
         {
             Console.Write("Press on any from this button to create new animal: ");
-            foreach (KeyValuePair<char, Animal> button in ButtonsDictionary.AnimalsAndLetters)
+            foreach (KeyValuePair<char, Type> button in ButtonsDictionary.AnimalsAndLettersDictionary)
             {
                 Console.Write("{0} ", button.Key);
             }

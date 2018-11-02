@@ -6,7 +6,6 @@ namespace SavannaConsoleGame.SavannaLogic.Animals
     {
         public Lion() : base()
         {
-            Health = 10;
             Predator = true;
         }
 

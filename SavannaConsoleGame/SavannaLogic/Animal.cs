@@ -29,15 +29,17 @@ namespace SavannaConsoleGame.SavannaLogic
         public virtual void Behavior()
         {
             int rowCoordinate = -1, columnCoordinate = -1;
-            List<char> animals;
+            List<char> animals = new List<char>();
 
             if (Predator == true)
             {
-                animals = Enemies;
+                if (Prey.Count != 0)
+                    animals = Prey;
             }
             else
             {
-                animals = Prey;
+                if (Enemies.Count != 0)
+                    animals = Enemies;
             }
 
             int i = 0;
@@ -56,7 +58,8 @@ namespace SavannaConsoleGame.SavannaLogic
             }
             else
             {
-                SpecialAction();
+                //SpecialAction();
+                Move();
             }
         }
 

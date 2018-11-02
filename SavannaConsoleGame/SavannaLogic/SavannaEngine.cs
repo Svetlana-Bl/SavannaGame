@@ -22,15 +22,21 @@ namespace SavannaConsoleGame.SavannaLogic
 
         private static void Start()
         {
+            int i = 0;
             while (true)
             {
                 if (mutex.WaitOne())
                 {
                     ConsoleOutput.ShowGameField();
+                    i++;
+                    for (int j = 0; j < SavannaAnimals.Animals.Count; j++)
+                        Console.WriteLine("Health {0} animal {1}", SavannaAnimals.Animals[j].ButtonSymbol, SavannaAnimals.Animals[j].Health);
+                    Console.WriteLine("Iteration{0} ", i);
                     UpdateCurrentAnimalsHealth();
                     MoveCurrentAnimals();
                     Thread.Sleep(1000);
-                    Console.SetCursorPosition(0, 0);
+                    //Console.SetCursorPosition(0, 0);
+                    Console.Clear();
                 }
                 mutex.ReleaseMutex();
             }

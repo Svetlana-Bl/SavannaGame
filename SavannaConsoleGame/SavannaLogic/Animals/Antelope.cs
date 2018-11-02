@@ -6,8 +6,6 @@ namespace SavannaConsoleGame.SavannaLogic.Animals
     {
         public Antelope() : base()
         {
-            Health = 10;
-            Predator = false;
         }
 
         public override void SpecialAction()
