@@ -6,11 +6,14 @@ namespace SavannaConsoleGame.SavannaLogic
 {
     public abstract class Animal
     {
-        static Random random = new Random();
+        public static Random random = new Random();
         private double _health;
         public double Health
         {
-            get { return _health; }
+            get
+            {
+                return _health;
+            }
             set
             {
                 if (value <= 0) Die();
@@ -136,7 +139,7 @@ namespace SavannaConsoleGame.SavannaLogic
             }
         }
 
-        private void VisionRangeFocus(ref int startRowCoordinate, ref int endRowCoordinate, ref int startColumnCoordinate, ref int endColumnCoordinate)
+        internal void VisionRangeFocus(ref int startRowCoordinate, ref int endRowCoordinate, ref int startColumnCoordinate, ref int endColumnCoordinate)
         {
             startRowCoordinate = LocationX - 1;
             endRowCoordinate = LocationX + 2;
