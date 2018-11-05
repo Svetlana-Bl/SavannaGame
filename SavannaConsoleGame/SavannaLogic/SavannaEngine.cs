@@ -46,7 +46,11 @@ namespace SavannaConsoleGame.SavannaLogic
                 SavannaAnimals.Animals[i].DecreaseHealth();
                 if (SavannaAnimals.Animals[i].LiveState == false)
                 {
-                    GameField.Field[SavannaAnimals.Animals[i].LocationX, SavannaAnimals.Animals[i].LocationY] = '_';
+                    if (GameField.Field[SavannaAnimals.Animals[i].LocationX, SavannaAnimals.Animals[i].LocationY]== SavannaAnimals.Animals[i].ButtonSymbol)
+                    {
+                        GameField.Field[SavannaAnimals.Animals[i].LocationX, SavannaAnimals.Animals[i].LocationY] = '_';
+                    }
+                    
                     SavannaAnimals.Animals.RemoveAt(i);
                     i--;
                 }

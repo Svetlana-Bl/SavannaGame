@@ -30,17 +30,7 @@ namespace SavannaConsoleGame.SavannaLogic
         {
             int rowCoordinate = -1, columnCoordinate = -1;
             List<char> animals = new List<char>();
-
-            if (Predator == true)
-            {
-                if (Prey.Count != 0)
-                    animals = Prey;
-            }
-            else
-            {
-                if (Enemies.Count != 0)
-                    animals = Enemies;
-            }
+            SetPredatorOrPreyList(ref animals);
 
             int i = 0;
             while (animals.Count != i)
@@ -130,6 +120,20 @@ namespace SavannaConsoleGame.SavannaLogic
         public void Die()
         {
             LiveState = false;
+        }
+
+        private void SetPredatorOrPreyList(ref List<char> animals)
+        {
+            if (Predator == true)
+            {
+                if (Prey.Count != 0)
+                    animals = Prey;
+            }
+            else
+            {
+                if (Enemies.Count != 0)
+                    animals = Enemies;
+            }
         }
 
         private void VisionRangeFocus(ref int startRowCoordinate, ref int endRowCoordinate, ref int startColumnCoordinate, ref int endColumnCoordinate)

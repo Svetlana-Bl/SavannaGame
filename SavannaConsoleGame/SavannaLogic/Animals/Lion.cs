@@ -16,8 +16,8 @@ namespace SavannaConsoleGame.SavannaLogic.Animals
             {
                 if (animal.LocationX == x && animal.LocationY == y)
                 {
-                    GameField.Field[LocationX, LocationY] = '_';
-                    GameField.Field[x, y] = ButtonSymbol;
+                    //GameField.Field[LocationX, LocationY] = '_';
+                    GameField.NextStepField[x, y] = ButtonSymbol;
                     animal.Health = 0;
                     IncreaseHealth();
                 }
