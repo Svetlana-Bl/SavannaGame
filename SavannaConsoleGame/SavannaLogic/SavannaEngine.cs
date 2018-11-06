@@ -29,12 +29,11 @@ namespace SavannaConsoleGame.SavannaLogic
                     UpdateCurrentAnimalsHealth();
 
                     ConsoleOutput.ShowGameField();
-                    foreach (Animal a in SavannaAnimals.Animals)
-                        Console.WriteLine("Animal {0}, health {1}", a.ButtonSymbol,a.Health);
+                    
                     MoveCurrentAnimals();
                     Thread.Sleep(1000);
-                    //Console.SetCursorPosition(0, 0);
-                    Console.Clear();
+                    Console.SetCursorPosition(0, 0);
+                    //Console.Clear();
                 }
                 mutex.ReleaseMutex();
             }
@@ -66,7 +65,8 @@ namespace SavannaConsoleGame.SavannaLogic
                 int i = 0;
                 while (i < SavannaAnimals.Animals.Count)
                 {
-                    SavannaAnimals.Animals[i].Behavior();
+                    if(SavannaAnimals.Animals[i].LiveState == true)
+                        SavannaAnimals.Animals[i].Behavior();
                     i++;
                 }
                 GameField.Field = GameField.NextStepField;

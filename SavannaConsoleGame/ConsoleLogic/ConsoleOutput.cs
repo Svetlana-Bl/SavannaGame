@@ -31,6 +31,7 @@ namespace SavannaConsoleGame.ConsoleLogic
 
         public static void ShowGameField()
         {
+            ShowGameFieldByAnimals();
             ShowButtonChoise();
             for (int i = 0; i < GameField.FieldLength; i++)
             {
@@ -43,6 +44,15 @@ namespace SavannaConsoleGame.ConsoleLogic
             Console.WriteLine("\n");
         }
 
+        public static void ShowGameFieldByAnimals()
+        {
+            GameField.Field = FieldGenerator.GenerateSavannaField();
+            foreach (Animal a in SavannaAnimals.Animals)
+            {
+                GameField.Field[a.LocationX, a.LocationY] = a.ButtonSymbol;
+            }
+        }
+
         public static void ShowButtonChoise()
         {
             Console.Write("Press on any from this button to create new animal: ");
@@ -51,6 +61,5 @@ namespace SavannaConsoleGame.ConsoleLogic
                 Console.Write("{0} ", button.Key);
             }
         }
-
     }
 }

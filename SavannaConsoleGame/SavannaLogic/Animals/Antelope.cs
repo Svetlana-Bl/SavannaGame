@@ -12,34 +12,36 @@ namespace SavannaConsoleGame.SavannaLogic.Animals
 
         public override void SpecialAction(int x, int y)
         {
-            int startRowCoordinate = LocationX, endRowCoordinate = LocationX, startColumnCoordinate = LocationY, endColumnCoordinate = LocationY;
-
+            VisionRange visionRange = new VisionRange() {
+                startRowCoordinate = LocationX,
+                endRowCoordinate = LocationX,
+                startColumnCoordinate = LocationY,
+                endColumnCoordinate = LocationY
+            };
+            
             if (y > LocationY)
             {
-                startColumnCoordinate = LocationY - 1;
+                visionRange.startColumnCoordinate = LocationY - 1;
             }
             else
             {
-                startColumnCoordinate = LocationY + 1;
+                visionRange.startColumnCoordinate = LocationY + 1;
             }
-
 
             if (x > LocationX)
             {
-                startRowCoordinate = LocationX - 1;
+                visionRange.startRowCoordinate = LocationX - 1;
             }
             else
             {
-                startRowCoordinate = LocationX + 1;
+                visionRange.startRowCoordinate = LocationX + 1;
             }
 
-            VisionRange visionRange = new VisionRange() { startRowCoordinate = 0, endRowCoordinate = 0, startColumnCoordinate = 0, endColumnCoordinate = 0 };
-
-            visionRange = FieldCornerCheck(visionRange);
-            Avoid(visionRange);
+            visionRange = FieldCornerCheck (visionRange);
+            Avoid (visionRange);
         }
 
-        public void Avoid(VisionRange visionRange)
+        public void Avoid (VisionRange visionRange)
         {
             bool approach = false;
             while (approach != true)
@@ -79,13 +81,13 @@ namespace SavannaConsoleGame.SavannaLogic.Animals
             if (LocationX == GameField.FieldLength - 1)
             {
                 visionRange.startRowCoordinate = LocationX + 1;
-                visionRange.endRowCoordinate = GameField.FieldLength - 1;
+                visionRange.endRowCoordinate = GameField.FieldLength - 2;
             }
 
             if (LocationY == GameField.FieldLength - 1)
             {
                 visionRange.startColumnCoordinate = LocationY + 1;
-                visionRange.endColumnCoordinate = GameField.FieldLength - 1;
+                visionRange.endColumnCoordinate = GameField.FieldLength - 2;
             }
             return visionRange;
         }

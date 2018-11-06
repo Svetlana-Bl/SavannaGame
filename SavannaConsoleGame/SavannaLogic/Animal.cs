@@ -34,7 +34,7 @@ namespace SavannaConsoleGame.SavannaLogic
         {
             int rowCoordinate = -1, columnCoordinate = -1;
             List<char> animals = SetPredatorOrPreyList();
-            Animal foundAnimal;
+            Animal foundAnimal=null;
             int i = 0;
             while (animals.Count != i)
             {
@@ -46,14 +46,14 @@ namespace SavannaConsoleGame.SavannaLogic
                 i++;
             }
 
-
             if (rowCoordinate == -1 && columnCoordinate == -1)
             {
                 Move();
             }
             else
             {
-                SpecialAction(rowCoordinate, columnCoordinate);
+                if(Health!=0)
+                    SpecialAction(rowCoordinate, columnCoordinate);
             }
         }
 
@@ -63,9 +63,7 @@ namespace SavannaConsoleGame.SavannaLogic
             Animal animal = (Animal)Activator.CreateInstance(animalType);
             animal.LocationX = -1;
             animal.LocationY = -1;
-            VisionRange animalVisionRange = new VisionRange() {
-                startColumnCoordinate = 0, endColumnCoordinate = 0, startRowCoordinate = 0, endRowCoordinate = 0
-            };
+            VisionRange animalVisionRange = new VisionRange();
 
             animalVisionRange = VisionRangeFocus(animalVisionRange);
 
@@ -89,9 +87,7 @@ namespace SavannaConsoleGame.SavannaLogic
         public void Move()
         {
             bool approach = false;
-            VisionRange animalVisionRange = new VisionRange() {
-                startColumnCoordinate = 0, endColumnCoordinate = 0, startRowCoordinate = 0, endRowCoordinate=0
-            };
+            VisionRange animalVisionRange = new VisionRange();
 
             animalVisionRange = VisionRangeFocus(animalVisionRange);
 

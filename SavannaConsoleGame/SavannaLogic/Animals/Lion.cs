@@ -12,19 +12,17 @@ namespace SavannaConsoleGame.SavannaLogic.Animals
 
         public override void SpecialAction(int x, int y)
         {
-            int currentAnimalIndex=0;
+            int currentAnimalIndex = 0;
             foreach (Animal animal in SavannaAnimals.Animals)
             {
                 if (animal.LocationX == x && animal.LocationY == y)
                 {
-
-                    GameField.Field[animal.LocationX, animal.LocationY] = '_';
-                    if (SavannaAnimals.Animals[currentAnimalIndex] == animal)
-                    {
-                        SavannaAnimals.Animals.RemoveAt(currentAnimalIndex);
-                    }
-                    GameField.NextStepField[x, y] = ButtonSymbol;
                     animal.Health = 0;
+                    GameField.NextStepField[x, y] = ButtonSymbol;
+                    LocationX = x;
+                    LocationY = y;
+                    GameField.NextStepField[LocationX, LocationY] = '_';
+
                     IncreaseHealth();
                     break;
                 }
