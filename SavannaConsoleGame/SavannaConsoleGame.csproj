@@ -48,6 +48,7 @@
     <Compile Include="Interfaces\IAnimalBehavior.cs" />
     <Compile Include="Models\SavannaAnimals.cs" />
     <Compile Include="Models\GameField.cs" />
+    <Compile Include="Models\VisionRangeCoordinates.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SavannaLogic\Animal.cs" />

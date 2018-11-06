@@ -6,7 +6,16 @@ namespace SavannaConsoleGame.SavannaLogic
 {
     public abstract class Animal
     {
+        public char ButtonSymbol { get; set; }
+        public bool LiveState { get; set; }
+        public bool Predator { get; set; }
+        public int LocationX { get; set; }
+        public int LocationY { get; set; }
+        public List<char> Enemies { get; set; }
+        public List<char> Prey { get; set; }
+
         public static Random random = new Random();
+
         private double _health;
         public double Health
         {
@@ -21,27 +30,19 @@ namespace SavannaConsoleGame.SavannaLogic
             }
         }
 
-        public char ButtonSymbol { get; set; }
-        public bool LiveState { get; set; }
-        public bool Predator { get; set; }
-        public int LocationX { get; set; }
-        public int LocationY { get; set; }
-        public List<char> Enemies { get; set; }
-        public List<char> Prey { get; set; }
-
         public virtual void Behavior()
         {
             int rowCoordinate = -1, columnCoordinate = -1;
-            List<char> animals = new List<char>();
-            SetPredatorOrPreyList(ref animals);
-
+            List<char> animals = SetPredatorOrPreyList();
+            Animal foundAnimal;
             int i = 0;
             while (animals.Count != i)
             {
-                
                 if (rowCoordinate != -1 && columnCoordinate != -1)
                     break;
-                UpdateVision(animals[i], ref rowCoordinate, ref columnCoordinate);
+                foundAnimal = UpdateVision(animals[i], rowCoordinate, columnCoordinate);
+                rowCoordinate = foundAnimal.LocationX;
+                columnCoordinate = foundAnimal.LocationY;
                 i++;
             }
 
@@ -56,39 +57,49 @@ namespace SavannaConsoleGame.SavannaLogic
             }
         }
 
-        public void UpdateVision(char animal, ref int x, ref int y)
+        public Animal UpdateVision(char animalButton, int x, int y)
         {
-            int startRowCoordinate = 0, endRowCoordinate = 0, startColumnCoordinate = 0, endColumnCoordinate = 0;
-            VisionRangeFocus(ref startRowCoordinate, ref endRowCoordinate, ref startColumnCoordinate, ref endColumnCoordinate);
+            Type animalType = SavannaDictionary.AnimalsAndLettersDictionary[animalButton];
+            Animal animal = (Animal)Activator.CreateInstance(animalType);
+            animal.LocationX = -1;
+            animal.LocationY = -1;
+            VisionRange animalVisionRange = new VisionRange() {
+                startColumnCoordinate = 0, endColumnCoordinate = 0, startRowCoordinate = 0, endRowCoordinate = 0
+            };
 
-            for (int rowCoordinate = startRowCoordinate; rowCoordinate < endRowCoordinate; rowCoordinate++)
+            animalVisionRange = VisionRangeFocus(animalVisionRange);
+
+            for (int rowCoordinate = animalVisionRange.startRowCoordinate; rowCoordinate < animalVisionRange.endRowCoordinate; rowCoordinate++)
             {
-                for (int columnCoordinate = startColumnCoordinate; columnCoordinate < endColumnCoordinate; columnCoordinate++)
+                for (int columnCoordinate = animalVisionRange.startColumnCoordinate; columnCoordinate < animalVisionRange.endColumnCoordinate; columnCoordinate++)
                 {
                     if (rowCoordinate == LocationX && columnCoordinate == LocationY)
                         continue;
-                    if (GameField.Field[rowCoordinate, columnCoordinate] == animal)
+                    if (GameField.Field[rowCoordinate, columnCoordinate] == animalButton)
                     {
-                        x = rowCoordinate;
-                        y = columnCoordinate;
+                        animal.LocationX = rowCoordinate;
+                        animal.LocationY = columnCoordinate;
                         break;
                     }
                 }
             }
+            return animal;
         }
 
         public void Move()
         {
             bool approach = false;
+            VisionRange animalVisionRange = new VisionRange() {
+                startColumnCoordinate = 0, endColumnCoordinate = 0, startRowCoordinate = 0, endRowCoordinate=0
+            };
 
-            int startRowCoordinate = 0, endRowCoordinate = 0, startColumnCoordinate = 0, endColumnCoordinate = 0;
-            VisionRangeFocus(ref startRowCoordinate, ref endRowCoordinate, ref startColumnCoordinate, ref endColumnCoordinate);
+            animalVisionRange = VisionRangeFocus(animalVisionRange);
 
             while (approach != true)
             {
                 int randomX, randomY;
-                randomX = random.Next(startRowCoordinate, endRowCoordinate);
-                randomY = random.Next(startColumnCoordinate, endColumnCoordinate);
+                randomX = random.Next(animalVisionRange.startRowCoordinate, animalVisionRange.endRowCoordinate);
+                randomY = random.Next(animalVisionRange.startColumnCoordinate, animalVisionRange.endColumnCoordinate);
 
                 if (LocationX != randomX && LocationY != randomY)
                 {
@@ -125,31 +136,34 @@ namespace SavannaConsoleGame.SavannaLogic
             LiveState = false;
         }
 
-        private void SetPredatorOrPreyList(ref List<char> animals)
+        private List<char> SetPredatorOrPreyList()
         {
+            List<char> PredatorOrPreyList = new List<char>();
             if (Predator == true)
             {
                 if (Prey.Count != 0)
-                    animals = Prey;
+                    PredatorOrPreyList = Prey;
             }
             else
             {
                 if (Enemies.Count != 0)
-                    animals = Enemies;
+                    PredatorOrPreyList = Enemies;
             }
+            return PredatorOrPreyList;
         }
 
-        internal void VisionRangeFocus(ref int startRowCoordinate, ref int endRowCoordinate, ref int startColumnCoordinate, ref int endColumnCoordinate)
+        internal VisionRange VisionRangeFocus(VisionRange animalVisionRange)
         {
-            startRowCoordinate = LocationX - 1;
-            endRowCoordinate = LocationX + 2;
-            startColumnCoordinate = LocationY - 1;
-            endColumnCoordinate = LocationY + 2;
+            animalVisionRange.startRowCoordinate = LocationX - 1;
+            animalVisionRange.endRowCoordinate = LocationX + 2;
+            animalVisionRange.startColumnCoordinate = LocationY - 1;
+            animalVisionRange.endColumnCoordinate = LocationY + 2;
 
-            if (LocationX == 0) startRowCoordinate = LocationX;
-            if (LocationX == GameField.FieldLength - 1) endRowCoordinate = GameField.FieldLength;
-            if (LocationY == 0) startColumnCoordinate = LocationY;
-            if (LocationY == GameField.FieldWidth - 1) endColumnCoordinate = GameField.FieldWidth;
+            if (LocationX == 0) animalVisionRange.startRowCoordinate = LocationX;
+            if (LocationX == GameField.FieldLength - 1) animalVisionRange.endRowCoordinate = GameField.FieldLength;
+            if (LocationY == 0) animalVisionRange.startColumnCoordinate = LocationY;
+            if (LocationY == GameField.FieldWidth - 1) animalVisionRange.endColumnCoordinate = GameField.FieldWidth;
+            return animalVisionRange;
         }
     }
 }

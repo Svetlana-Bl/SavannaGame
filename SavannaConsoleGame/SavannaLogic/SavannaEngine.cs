@@ -29,11 +29,12 @@ namespace SavannaConsoleGame.SavannaLogic
                     UpdateCurrentAnimalsHealth();
 
                     ConsoleOutput.ShowGameField();
-                    
+                    foreach (Animal a in SavannaAnimals.Animals)
+                        Console.WriteLine("Animal {0}, health {1}", a.ButtonSymbol,a.Health);
                     MoveCurrentAnimals();
                     Thread.Sleep(1000);
-                    Console.SetCursorPosition(0, 0);
-                    //Console.Clear();
+                    //Console.SetCursorPosition(0, 0);
+                    Console.Clear();
                 }
                 mutex.ReleaseMutex();
             }
@@ -46,11 +47,11 @@ namespace SavannaConsoleGame.SavannaLogic
                 SavannaAnimals.Animals[i].DecreaseHealth();
                 if (SavannaAnimals.Animals[i].LiveState == false)
                 {
-                    if (GameField.Field[SavannaAnimals.Animals[i].LocationX, SavannaAnimals.Animals[i].LocationY]== SavannaAnimals.Animals[i].ButtonSymbol)
+                    if (GameField.Field[SavannaAnimals.Animals[i].LocationX, SavannaAnimals.Animals[i].LocationY] == SavannaAnimals.Animals[i].ButtonSymbol)
                     {
                         GameField.Field[SavannaAnimals.Animals[i].LocationX, SavannaAnimals.Animals[i].LocationY] = '_';
                     }
-                    
+
                     SavannaAnimals.Animals.RemoveAt(i);
                     i--;
                 }
@@ -71,6 +72,5 @@ namespace SavannaConsoleGame.SavannaLogic
                 GameField.Field = GameField.NextStepField;
             }
         }
-
     }
 }
