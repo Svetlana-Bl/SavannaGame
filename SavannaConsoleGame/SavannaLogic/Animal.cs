@@ -91,7 +91,6 @@ namespace SavannaConsoleGame.SavannaLogic
                     noSuchParentYet = false;
                     progeny.IterationCount++;
                     Progeny[i] = progeny;
-                    Console.WriteLine("iter:{0}", progeny.IterationCount++);
                 }
 
                 if (Progeny.Count - 1 == i && noSuchParentYet == true)
@@ -101,6 +100,7 @@ namespace SavannaConsoleGame.SavannaLogic
                     progeny.parent = potencialPartner;
                     progeny.NearOrNot = true;
                     Progeny[i + 1] = progeny;
+                    Console.WriteLine("iter {0}", progeny.IterationCount);
                 }
 
                 if (Progeny[i].IterationCount == 3)

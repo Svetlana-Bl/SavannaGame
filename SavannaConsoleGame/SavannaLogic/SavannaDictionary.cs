@@ -1,5 +1,6 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using System;
+using System.Collections.Generic;
+using System.Reflection;
 using SavannaConsoleGame.SavannaLogic.Animals;
 
 namespace SavannaConsoleGame.SavannaLogic
@@ -10,16 +11,12 @@ namespace SavannaConsoleGame.SavannaLogic
 
         public static void SetDictionaryParameters()
         {
-            string path = "C:\\Users\\svetlana.bluma\\source\\repos\\SavannaConsoleGame\\SavannaConsoleGame\\SavannaLogic\\Animals";
+            var DLL = Assembly.LoadFile(@"C:\Users\svetlana.bluma\source\repos\SavannaConsoleGame\SavannaConsoleGame\SavannaLogic\LoadedAnimals");
 
-            if (Directory.Exists(path))
+            foreach (Type type in DLL.GetExportedTypes())
             {
-                string[] animals = Directory.GetFiles(path);
-                foreach (string animal in animals)
-                {
-                    //System.Type type = animal.GetType();
-                    //AnimalsAndLetters.Add(animal.Substring(0, 1), animal);
-                }
+                string nameOfType = Convert.ToString(type);
+                AnimalsAndLettersDictionary.Add(Convert.ToChar(nameOfType.Substring(0, 1)), type);
             }
         }
 

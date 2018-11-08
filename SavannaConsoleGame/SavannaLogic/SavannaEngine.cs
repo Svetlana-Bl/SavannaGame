@@ -32,8 +32,7 @@ namespace SavannaConsoleGame.SavannaLogic
                     
                     MoveCurrentAnimals();
                     Thread.Sleep(1000);
-                    //Console.SetCursorPosition(0, 0);
-                    Console.Clear();
+                    Console.SetCursorPosition(0, 0);
                 }
                 mutex.ReleaseMutex();
             }
