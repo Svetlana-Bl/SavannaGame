@@ -46,6 +46,7 @@
     <Compile Include="ConsoleLogic\ConsoleOutput.cs" />
     <Compile Include="ConsoleLogic\ConsoleInput.cs" />
     <Compile Include="Interfaces\IAnimalBehavior.cs" />
+    <Compile Include="Models\ReadynessToProgeny.cs" />
     <Compile Include="Models\SavannaAnimals.cs" />
     <Compile Include="Models\GameField.cs" />
     <Compile Include="Models\VisionRangeCoordinates.cs" />

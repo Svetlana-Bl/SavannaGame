@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Threading;
 using SavannaConsoleGame.Models;
 
 namespace SavannaConsoleGame.ConsoleLogic

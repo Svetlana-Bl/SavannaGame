@@ -11,6 +11,7 @@ namespace SavannaConsoleGame.SavannaLogic
         public bool Predator { get; set; }
         public int LocationX { get; set; }
         public int LocationY { get; set; }
+        public List<Progeny> Progeny = new List<Progeny>();
         public List<char> Enemies { get; set; }
         public List<char> Prey { get; set; }
 
@@ -32,37 +33,127 @@ namespace SavannaConsoleGame.SavannaLogic
 
         public virtual void Behavior()
         {
-            int rowCoordinate = -1, columnCoordinate = -1;
             List<char> animals = SetPredatorOrPreyList();
-            Animal foundAnimal=null;
+            Animal foundAnimal = null;
             int i = 0;
+
             while (animals.Count != i)
             {
-                if (rowCoordinate != -1 && columnCoordinate != -1)
-                    break;
-                foundAnimal = UpdateVision(animals[i], rowCoordinate, columnCoordinate);
-                rowCoordinate = foundAnimal.LocationX;
-                columnCoordinate = foundAnimal.LocationY;
+                foundAnimal = UpdateVision(animals[i], false);
                 i++;
+                if (foundAnimal.LocationX != 0 && foundAnimal.LocationY != 0)
+                    break;
             }
 
-            if (rowCoordinate == -1 && columnCoordinate == -1)
+            if (foundAnimal.LocationX == 0 && foundAnimal.LocationY == 0)
             {
-                Move();
+                foundAnimal = UpdateVision(ButtonSymbol, true);
+                if (foundAnimal.LocationX != 0 && foundAnimal.LocationY != 0 && ButtonSymbol == 'A')
+                {
+                    SetPotentialPartner(foundAnimal);
+                    Move();
+                    CheckPartnerStillNear(foundAnimal);
+                }
+                else
+                {
+                    Move();
+                }
+
             }
             else
             {
-                if(Health!=0)
-                    SpecialAction(rowCoordinate, columnCoordinate);
+                if (Health != 0)
+                    SpecialAction(foundAnimal.LocationX, foundAnimal.LocationY);
             }
         }
 
-        public Animal UpdateVision(char animalButton, int x, int y)
+        public void SetPotentialPartner(Animal potencialPartner)
+        {
+            bool noSuchParentYet = true;
+            Progeny progeny = new Progeny();
+            int i = 0;
+
+            if (Progeny.Count == 0)
+            {
+                Progeny.Add(new Progeny());
+                progeny = Progeny[0];
+                progeny.IterationCount = 0;
+                progeny.parent = potencialPartner;
+                progeny.NearOrNot = true;
+                Progeny[0] = progeny;
+            }
+
+            while (i < Progeny.Count)
+            {
+                progeny = Progeny[i];
+                if (object.ReferenceEquals(potencialPartner, Progeny[i].parent))
+                {
+                    noSuchParentYet = false;
+                    progeny.IterationCount++;
+                    Progeny[i] = progeny;
+                    Console.WriteLine("iter:{0}", progeny.IterationCount++);
+                }
+
+                if (Progeny.Count - 1 == i && noSuchParentYet == true)
+                {
+                    Progeny.Add(new Progeny());
+                    progeny.IterationCount = 1;
+                    progeny.parent = potencialPartner;
+                    progeny.NearOrNot = true;
+                    Progeny[i + 1] = progeny;
+                }
+
+                if (Progeny[i].IterationCount == 3)
+                {
+                    Birth();
+                    progeny.IterationCount = 0;
+                    progeny.NearOrNot = true;
+                    Progeny[i] = progeny;
+                }
+                i++;
+            }
+        }
+
+        public void CheckPartnerStillNear(Animal partner)
+        {
+            Animal animal;
+            Progeny progeny = new Progeny();
+            if (Progeny.Count == 0)
+            {
+                for (int i = 0; i < Progeny.Count; i++)
+                {
+                    progeny = Progeny[i];
+                    progeny.NearOrNot = false;
+                    animal = progeny.parent;
+
+                    if (object.ReferenceEquals(partner, animal))
+                    {
+                        progeny.NearOrNot = true;
+                    }
+                    Progeny[i] = progeny;
+                }
+                for (int i = 0; i < Progeny.Count; i++)
+                {
+                    progeny = Progeny[i];
+                    if (progeny.NearOrNot == false)
+                    {
+                        Progeny.RemoveAt(i);
+                        i--;
+                    }
+                }
+            }
+        }
+
+
+        public void Birth()
+        {
+            AnimalCreationOnTheField.SetNewAnimalPosition(ButtonSymbol);
+        }
+
+        public Animal UpdateVision(char animalButton, bool sameAnimal)
         {
             Type animalType = SavannaDictionary.AnimalsAndLettersDictionary[animalButton];
             Animal animal = (Animal)Activator.CreateInstance(animalType);
-            animal.LocationX = -1;
-            animal.LocationY = -1;
             VisionRange animalVisionRange = new VisionRange();
 
             animalVisionRange = VisionRangeFocus(animalVisionRange);
@@ -75,9 +166,22 @@ namespace SavannaConsoleGame.SavannaLogic
                         continue;
                     if (GameField.Field[rowCoordinate, columnCoordinate] == animalButton)
                     {
-                        animal.LocationX = rowCoordinate;
-                        animal.LocationY = columnCoordinate;
-                        break;
+                        for (int i = 0; i < SavannaAnimals.Animals.Count; i++)
+                        {
+                            if (SavannaAnimals.Animals[i].LocationX == rowCoordinate && SavannaAnimals.Animals[i].LocationY == columnCoordinate)
+                            {
+                                animal = SavannaAnimals.Animals[i];
+                            }
+                        }
+
+                        if (sameAnimal == false)
+                        {
+                            break;
+                        }
+                        else
+                        {
+                            CheckPartnerStillNear(animal);
+                        }
                     }
                 }
             }
@@ -99,7 +203,7 @@ namespace SavannaConsoleGame.SavannaLogic
 
                 if (LocationX != randomX && LocationY != randomY)
                 {
-                  
+
                     LocationX = randomX;
                     LocationY = randomY;
 

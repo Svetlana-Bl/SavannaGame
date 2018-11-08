@@ -7,7 +7,7 @@ namespace SavannaConsoleGame.Interfaces
         void Move();
         void DecreaseHealth();
         void Die();
-        Animal UpdateVision(char animal, int x, int y);
+        Animal UpdateVision(char animal, bool sameAnimal);
         void SpecialAction(int x, int y);
     }
 }

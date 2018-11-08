@@ -18,7 +18,7 @@ namespace SavannaConsoleGame.SavannaLogic
             }
         }
 
-        private static void SetNewAnimalPosition(char animal)
+        public static void SetNewAnimalPosition(char animal)
         {
             Random rand = new Random();
             int x, y;
@@ -42,9 +42,9 @@ namespace SavannaConsoleGame.SavannaLogic
             }
         }
 
-        private static Animal AddNewAnimal(char animal)
+        public static Animal AddNewAnimal(char animal)
         {
-            Animal newAnimal=null;
+            Animal newAnimal = null;
             if (SavannaDictionary.AnimalsAndLettersDictionary.ContainsKey(animal))
             {
                 Type animalType = SavannaDictionary.AnimalsAndLettersDictionary[animal];

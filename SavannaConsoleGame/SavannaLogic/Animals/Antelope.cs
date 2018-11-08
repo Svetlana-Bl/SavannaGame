@@ -37,8 +37,8 @@ namespace SavannaConsoleGame.SavannaLogic.Animals
                 visionRange.startRowCoordinate = LocationX + 1;
             }
 
-            visionRange = FieldCornerCheck (visionRange);
-            Avoid (visionRange);
+            visionRange = VisionCornerCheck(visionRange);
+            Avoid(visionRange);
         }
 
         public void Avoid (VisionRange visionRange)
@@ -64,7 +64,7 @@ namespace SavannaConsoleGame.SavannaLogic.Animals
             }
         }
 
-        private VisionRange FieldCornerCheck(VisionRange visionRange)
+        private VisionRange VisionCornerCheck(VisionRange visionRange)
         {
             if (LocationX == 0)
             {
@@ -91,6 +91,6 @@ namespace SavannaConsoleGame.SavannaLogic.Animals
             }
             return visionRange;
         }
-
+        
     }
 }
