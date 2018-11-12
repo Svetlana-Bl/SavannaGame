@@ -10,7 +10,7 @@ namespace SavannaConsoleGame.SavannaLogic
 
         public static void SetDictionaryParameters()
         {
-            string path = "C:\\Users\\svetlana.bluma\\source\\repos\\SavannaConsoleGame\\SavannaConsoleGame\\SavannaLogic\\Animals";
+            string path = "";
 
             if (Directory.Exists(path))
             {
